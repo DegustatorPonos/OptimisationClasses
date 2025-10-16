@@ -1,3 +1,6 @@
 .zig-cache/
 zig-out/
 *.o
+
+# For cpp implimitations (I use g++ for compilation)
+*.out
