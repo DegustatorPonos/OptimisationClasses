@@ -12,6 +12,12 @@ pub const FOV = struct {
         };
     }
 
+    pub fn Create(a: std.mem.Allocator, fx: *const fn(f64)f64) !*FOV {
+        const outp = try a.create(FOV);
+        outp.* = Init(fx);
+        return outp;
+    }
+
     pub fn df_right(self: FOV, x0: f64, step: f64) f64 {
         const fp = self.base_function;
         return (fp(x0+step) - fp(x0))/step;
