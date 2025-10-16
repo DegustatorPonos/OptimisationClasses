@@ -59,7 +59,7 @@ pub const FOV = struct {
         return .{0};
     }
 
-    pub fn IsLucky(self: FOV, a: f64, b: f64, c: f64, ) bool {
+    pub fn IsLucky(self: FOV, a: f64, b: f64, c: f64) bool {
         const fa = self.pf(a);
         const fb = self.pf(b);
         const fc = self.pf(c);
