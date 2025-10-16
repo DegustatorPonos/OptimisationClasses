@@ -9,10 +9,12 @@ const fov = @import("FOV.zig").FOV;
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
+
     const alloc = gpa.allocator();
     var one_var_func = try fov.Create(alloc, baseFx);
     defer alloc.destroy(one_var_func);
-    try stdout.print("F'(1) = {d}\n", .{one_var_func.df_right(1, 1e-10)});
+
+    try stdout.print("F'(1) = {d}\n", .{one_var_func.Df_right(1, 1e-10)});
     try stdout.print("Expected F'(1) = {d}\n", .{derivedFx(1)});
 }
 
