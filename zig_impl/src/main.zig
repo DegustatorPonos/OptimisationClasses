@@ -5,11 +5,15 @@ const fov = @import("FOV.zig").FOV;
 const ftv = @import("FMV.zig").FMV;
 const isn = @import("SmallNumbers.zig").ISN;
 const table = @import("Representations/Table.zig").Table;
+const math2 = @import("CommonMath.zig");
 
 /// This imports the separate module containing `root.zig`. Take a look in `build.zig` for details.
 // const lib = @import("optim_zig_lib");
 
 pub fn main() !void {
+    const start: f64 = 0.987;
+    try stdout.print("{d}\n", .{start});
+
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
 
@@ -29,8 +33,9 @@ fn tableTest(alloc: std.mem.Allocator) !void {
     });
     defer t.Deinit();
     // var newRow = [_]f64 {1.5, 7.0/3.0 };
+    try t.AddRecord(&[_]f64 {1, 721});
     try t.AddRecord(&[_]f64 {1.5, 7.0/3.0 });
-    try t.AddRecord(&[_]f64 {0.987, 17.0/53.0 });
+    try t.AddRecord(&[_]f64 {12.987, 17.0/53.0 });
     try t.Print();
 }
 

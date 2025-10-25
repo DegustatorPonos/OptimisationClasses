@@ -47,7 +47,7 @@ pub const Table = struct {
     fn printHeader(self: Table) !void {
         try stdout.print("| ", .{});
         for (self.Titles) |i| {
-            try stdout.print("{s}\t| ", .{i});
+            try stdout.print("{s} | ", .{i});
         }
         try stdout.print("\n", .{});
     }
@@ -56,9 +56,25 @@ pub const Table = struct {
         if (self.Records.items.len <= i) return;
         const row = self.Records.items[i];
         try stdout.print("| ", .{});
-        for (row) |val| {
-            try stdout.print("{d}\t| ", .{math2.Round(f64, val, self.RoundTo)});
+        for (0.., row) |j, val| {
+            const rounded = math2.Round(f64, val, self.RoundTo);
+            const rowLen = self.Titles[j].len; // So that all that shit alignes
+            const num_len = math2.FloatStrLength(rounded, self.RoundTo);
+            if (num_len > rowLen) {
+                try stdout.print("...", .{});
+                for (2..rowLen) |_| {
+                    try stdout.print(" ", .{});
+                }
+                try stdout.print("| ", .{});
+                continue;
+            }
+            try stdout.print("{d} ", .{rounded});
+            for (num_len..rowLen) |_| {
+                try stdout.print(" ", .{});
+            }
+            try stdout.print("| ", .{});
         }
         try stdout.print("\n", .{});
     }
+
 };
