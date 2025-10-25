@@ -3,7 +3,6 @@ const std = @import("std");
 const stdout = std.io.getStdOut().writer();
 const expect = std.testing.expect;
 
-
 pub const ISN = struct {
     const machineEpsilon: f64 = 1e-16;
     const machineZero : f64 = 1e-308;
@@ -24,8 +23,10 @@ pub const ISN = struct {
 
     pub fn IsISN (self: ISN) bool {
         // (lim f(x); x -> 0) = 0
-        return @abs(self.bf(machineZero)) == 0;
+        return @abs(self.bf(machineZero)) <= machineZero;
     }
+
+    // pub fn CreateTable()
 };
 
 fn isnFunc(x: f64) f64 {
