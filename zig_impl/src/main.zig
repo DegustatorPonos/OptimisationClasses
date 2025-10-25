@@ -2,6 +2,7 @@ const std = @import("std");
 const stdout = std.io.getStdOut().writer();
 const math = std.math;
 const fov = @import("FOV.zig").FOV;
+const ftv = @import("FMV.zig").FMV;
 const isn = @import("SmallNumbers.zig").ISN;
 
 /// This imports the separate module containing `root.zig`. Take a look in `build.zig` for details.
@@ -12,6 +13,7 @@ pub fn main() !void {
     defer _ = gpa.deinit();
 
     const allocator = gpa.allocator();
+    try tableTest(allocator);
     var one_var_func = try fov.Create(allocator, baseFx);
     defer allocator.destroy(one_var_func);
 
@@ -30,5 +32,7 @@ fn derivedFx(x: f64) f64 {
 // Linking tests from FOV class impl
 test {
     _ = fov;
+    _ = ftv;
     _ = isn;
 }
+
