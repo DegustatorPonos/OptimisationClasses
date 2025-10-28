@@ -1,5 +1,4 @@
 const std = @import("std");
-const stdout = std.io.getStdOut().writer();
 const math = std.math;
 const fov = @import("FOV.zig").FOV;
 const ftv = @import("FMV.zig").FMV;
@@ -12,7 +11,7 @@ const math2 = @import("CommonMath.zig");
 
 pub fn main() !void {
     const start: f64 = 0.987;
-    try stdout.print("{d}\n", .{start});
+    std.debug.print("{d}\n", .{start});
 
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
     defer _ = gpa.deinit();
@@ -22,8 +21,8 @@ pub fn main() !void {
     var one_var_func = try fov.Create(allocator, baseFx);
     defer allocator.destroy(one_var_func);
 
-    try stdout.print("F'(1) = {d}\n", .{one_var_func.Df_right(1, 1e-10)});
-    try stdout.print("Expected F'(1) = {d}\n", .{derivedFx(1)});
+    std.debug.print("F'(1) = {d}\n", .{one_var_func.Df_right(1, 1e-10)});
+    std.debug.print("Expected F'(1) = {d}\n", .{derivedFx(1)});
 }
 
 fn tableTest(alloc: std.mem.Allocator) !void {
